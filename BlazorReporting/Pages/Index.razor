@@ -1,0 +1,32 @@
+﻿@page "/"
+@using DevExpress.Blazor.Reporting
+@using DevExpress.XtraReports.UI
+@inject WeatherForecastService ForecastService
+@using BlazorReporting.Data
+@using System.Data
+@using System.Net
+
+<PageTitle>Index</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+<a href="/Viewer" @onclick="reprotTest" target="_blank"> sample report</a>
+
+@code {
+    public WeatherForecast[] forecasts;
+    XtraReport Report { get; set; }
+
+
+   async Task reprotTest()
+    {
+        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        Report = new Reports.TestReport();
+        Report.DataSource = forecasts;
+        Report.Width=210;
+        Report.PageHeight = 297;
+        SharedClass.ReportPerameter(Report);
+    }
+}

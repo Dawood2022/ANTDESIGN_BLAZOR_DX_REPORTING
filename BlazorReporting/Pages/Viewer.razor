@@ -1,0 +1,30 @@
+﻿@page "/Viewer"
+
+@using BlazorReporting.Data
+@using DevExpress.Blazor.Reporting
+@using DevExpress.XtraReports.UI;
+
+@using BlazorReporting.Data
+@inject WeatherForecastService ForecastService
+
+<h3>Viewer</h3>
+<link href="_content/DevExpress.Blazor.Themes/blazing-berry.bs5.css" rel="stylesheet" />
+<link rel="stylesheet" href="_content/DevExpress.Blazor.Reporting.Viewer/css/dx-blazor-reporting-components.bs5.css">
+
+<DxReportViewer @ref="reportViewer" Report="@Report">
+</DxReportViewer>
+@using System.Data
+@code {
+    DxReportViewer reportViewer { get; set; }
+    XtraReport Report { get; set; }
+
+    public WeatherForecast[] forecasts;
+
+
+    protected async override  Task OnInitializedAsync( ) 
+    {
+      Report=  SharedClass.SetReportValues();
+
+    }
+   
+}
